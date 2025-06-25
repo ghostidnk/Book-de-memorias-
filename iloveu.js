@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.book .page');
-    // ATUALIZADO: Seletores para as novas setas
     const prevBtn = document.querySelector('.prev-arrow');
     const nextBtn = document.querySelector('.next-arrow');
     const heartBackground = document.querySelector('.heart-background');
     const backgroundMusic = document.getElementById('background-music');
 
+    // Mantenha o seletor para o botão de aventura
+    const nextAdventureButton = document.getElementById('nextAdventureButton');
+
     let currentPageIndex = 0;
-    const totalPages = pages.length;
+    const totalPages = pages.length; // Agora totalPages será 8 (se antes era 7)
 
     // --- Funções para o Livrinho ---
 
@@ -31,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        // Garantir o estado correto da primeira página quando está ativa
         if (currentPageIndex === 0) {
             pages[0].style.zIndex = totalPages + 1;
             pages[0].classList.add('active');
@@ -38,16 +41,19 @@ document.addEventListener('DOMContentLoaded', () => {
             pages[0].style.transform = 'rotateY(0deg)';
         }
 
+        // A lógica para a ÚLTIMA PÁGINA (a nova página com o botão)
+        // Não precisa mais de um if especial para mostrar o botão aqui,
+        // pois ele já está dentro da página e será visível quando a página for ativa.
         if (currentPageIndex === totalPages - 1) {
-            pages[totalPages - 1].style.zIndex = totalPages + 1;
-            pages[totalPages - 1].classList.add('active');
-            pages[totalPages - 1].classList.remove('turn-left');
-            pages[totalPages - 1].style.transform = 'rotateY(0deg)';
+             pages[totalPages - 1].style.zIndex = totalPages + 1;
+             pages[totalPages - 1].classList.add('active');
+             pages[totalPages - 1].classList.remove('turn-left');
+             pages[totalPages - 1].style.transform = 'rotateY(0deg)';
         }
 
         // Desativa botões (setas) se estiver nas extremidades
-        // Usar visibility para não remover do fluxo e manter a animação
         prevBtn.style.visibility = currentPageIndex === 0 ? 'hidden' : 'visible'; 
+        // O botão 'nextBtn' agora deve ficar "hidden" apenas na *nova* última página
         nextBtn.style.visibility = currentPageIndex === totalPages - 1 ? 'hidden' : 'visible';
     }
 
@@ -61,7 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentPageIndex++;
                 updateBook();
             }, 800);
-
         } else if (direction === 'prev' && currentPageIndex > 0) {
             const pageToReturn = pages[currentPageIndex - 1];
             const currentPage = pages[currentPageIndex];
@@ -83,6 +88,12 @@ document.addEventListener('DOMContentLoaded', () => {
     prevBtn.addEventListener('click', () => turnPage('prev'));
     nextBtn.addEventListener('click', () => turnPage('next'));
 
+    // NOVO: Event listener para o botão de aventura (Continua o mesmo!)
+    // O botão só será clicável quando a página for ativa e ele estiver visível no HTML/CSS
+    nextAdventureButton.addEventListener('click', () => {
+        window.location.href = 'flor_especial.html'; // Redireciona para a nova página
+    });
+
     // Inicializa o livro na primeira página
     updateBook();
 
@@ -103,7 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
             heart.remove();
         });
     }
-    setInterval(createHeart, 500);
+    for (let i = 0; i < 10; i++) {
+        setTimeout(createHeart, i * 500);
+    }
+    setInterval(createHeart, 1000);
+
 
     // --- Controle de Áudio ---
     backgroundMusic.volume = 0.4;

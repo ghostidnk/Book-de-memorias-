@@ -1,0 +1,117 @@
+/* Fundo com GIF de nebulosa */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Courier New', Courier, monospace;
+  background: url('https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcGZiODB2cXM3YndtbWhmMXY1enc3am0xOWlkd2ZrOHk1ZGduMzh3dCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3og0IV7MOCfnm85iRa/giphy.gif') no-repeat center center fixed;
+  background-size: cover;
+  color: #fff;
+}
+
+/* Estrelas */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent url('https://raw.githubusercontent.com/JulianLaval/canvas-space/master/stars.png') repeat;
+  z-index: 0;
+  animation: moveStars 60s linear infinite;
+}
+
+@keyframes moveStars {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -1000px 1000px;
+  }
+}
+
+/* Buraco negro estilizado */
+.buraco-negro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #000 40%, #111 60%, transparent 70%);
+  box-shadow:
+    0 0 20px 10px rgba(255, 255, 255, 0.2),
+    0 0 60px 20px rgba(255, 255, 255, 0.15);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  animation: pulsar 4s infinite ease-in-out;
+  cursor: pointer;
+}
+
+.buraco-negro::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.2),
+    rgba(255,255,255,0.05)
+  );
+  animation: rotacao 12s linear infinite;
+  z-index: -1;
+  filter: blur(6px);
+}
+
+@keyframes rotacao {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulsar {
+  0%, 100% {
+    box-shadow: 0 0 20px 10px rgba(255,255,255,0.2), 0 0 60px 20px rgba(255,255,255,0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px 15px rgba(255,255,255,0.3), 0 0 80px 30px rgba(255,255,255,0.2);
+  }
+}
+
+/* Caixa de mensagem */
+.flor_especial-caixa-mensagem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Georgia', serif;
+  font-size: 1.2rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid #fff;
+  border-radius: 12px;
+  padding: 25px;
+  max-width: 600px;
+  width: 90%;
+  display: none;
+  white-space: pre-line;
+  line-height: 1.6;
+  box-shadow: 0 0 20px #ffffff55;
+  z-index: 999;
+  animation: fadeIn 2s ease-in;
+  text-align: left;
+}
+
+
+
+.flor_especial-caixa-mensagem h1 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.flor_especial-caixa-mensagem p {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+

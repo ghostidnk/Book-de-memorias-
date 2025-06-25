@@ -124,7 +124,7 @@ h1 {
     max-width: 700px; /* Largura máxima para o livro (ajuste conforme o tamanho ideal) */
     display: flex;
     justify-content: center; /* Centraliza o livro e as flechas */
-    align-items: center;
+    align-items: center; /* Alinha verticalmente as setas com o centro do livro */
     gap: 40px; /* Espaço entre as flechas e o livro */
     margin: 0 auto; /* Centraliza o book-container */
     z-index: 1; /* Para que o livro esteja acima dos corações */
@@ -139,8 +139,7 @@ h1 {
     transition: transform 0.8s; /* Transição para a virada de página, se o JavaScript mover o livro todo */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Sombra mais pronunciada */
     border-radius: 5px;
-    /* Adicione uma capa sutil para o livro fechado */
-    background-color: var(--primary-color);
+    background-color: var(--primary-color); /* Cor da capa padrão do livro fechado */
     border: 1px solid rgba(0, 0, 0, 0.2);
     overflow: hidden; /* Garante que o conteúdo interno não transborde */
 }
@@ -157,7 +156,7 @@ h1 {
     transition: transform 0.8s ease-in-out, z-index 0s 0.4s; /* Transição da virada e atraso do z-index */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo da página por padrão (ajuste para as capas) */
+    justify-content: center; /* Centraliza o conteúdo da página por padrão */
     align-items: center;
     padding: 20px;
     border-radius: 5px;
@@ -201,7 +200,7 @@ h1 {
     margin-top: 15px; /* Espaçamento acima da imagem */
 }
 
-/* Estilos para a capa e contracapa */
+/* Estilos para a capa frontal e contracapa do livro */
 .page.cover-front,
 .page.cover-back {
     background-color: var(--primary-color); /* Cor da capa */
@@ -209,36 +208,91 @@ h1 {
     justify-content: center; /* Centraliza verticalmente o conteúdo na capa */
     align-items: center; /* Centraliza horizontalmente o conteúdo na capa */
     overflow-y: hidden; /* Remove barra de rolagem na capa, se não for necessário */
+    padding: 20px; /* Adicionado/Ajustado: padding interno para afastar o conteúdo das bordas */
+    box-sizing: border-box; /* Garante que o padding não aumente o tamanho total */
 }
 
-/* ESPECÍFICO PARA O CONTEÚDO DAS CAPAS */
+/* ESPECÍFICO PARA O CONTEÚDO DAS CAPAS (cover-front e cover-back) */
 .page.cover-front .page-content,
 .page.cover-back .page-content {
-    gap: 20px; /* Aumenta o espaçamento entre elementos para as capas */
+    gap: 15px; /* Ajuste: Espaçamento entre elementos para as capas */
     height: 100%; /* Garante que o conteúdo da capa ocupe a altura total */
-    padding: 20px 0; /* Adiciona um pouco de padding vertical */
-    box-sizing: border-box;
+    width: 100%; /* Garante que ocupe a largura total disponível */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente o conteúdo da capa */
+    align-items: center; /* Centraliza horizontalmente o conteúdo da capa */
 }
 
 .page.cover-front .page-content h2,
 .page.cover-back .page-content h2 {
+    font-size: 2.3em; /* Ajustado: Levemente maior para destaque */
     color: var(--text-color-light); /* Garante que o título da capa seja claro */
-    margin-bottom: 0; /* Remove margem extra para centralizar melhor */
+    margin-bottom: 5px; /* Ajustado: Pequena margem abaixo do título */
 }
 
 .page.cover-front .page-content p,
 .page.cover-back .page-content p {
+    font-size: 1.05em; /* Ajustado: Levemente maior para legibilidade */
     color: var(--text-color-light); /* Garante que o parágrafo da capa seja claro */
+    line-height: 1.5;
+    max-width: 90%;
 }
 
-/* Aumenta a max-height das imagens da capa para que ocupem mais espaço */
+/* Ajuste para a imagem da capa (cover-front e cover-back) */
 .page.cover-front .page-image,
 .page.cover-back .page-image {
-    max-height: 60%; /* Permite que a imagem ocupe mais da altura da capa */
-    width: auto; /* Garante que a largura se ajuste */
-    height: auto; /* Garante que a altura se ajuste */
+    max-height: 50%; /* Ajustado: Tente 50% ou 45% para que o texto e o botão caibam. Ajuste conforme suas imagens! */
+    width: auto;
+    height: auto;
     object-fit: contain;
-    margin-top: 20px; /* Ajuste o espaçamento superior da imagem na capa */
+    margin-top: 20px; /* Espaço entre texto e imagem */
+    margin-bottom: 20px; /* Espaço entre imagem e botão (se houver um na capa) */
+}
+
+
+/* NOVO: Estilos para a página extra com o botão de aventura */
+.page.special-last-page {
+    background-color: var(--background-dark); /* Fundo escuro para dar um ar de "segredo" */
+    color: var(--text-color-light);
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden; /* Geralmente não terá scroll */
+}
+
+.page.special-last-page .page-content h2 {
+    color: var(--tertiary-color); /* Título da página especial */
+    font-size: 2.5em; /* Um pouco maior para destaque */
+}
+
+.page.special-last-page .page-content p {
+    color: var(--text-color-light); /* Parágrafo da página especial */
+    font-size: 1.1em;
+    margin-bottom: 30px; /* Espaço antes do botão */
+}
+
+/* Estilos para o botão de aventura */
+.special-button {
+    background-color: var(--tertiary-color); /* Rosa vibrante */
+    color: var(--text-color-light); /* Texto claro */
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1em;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+    /* REMOVIDO: display: none; e qualquer regra específica de display que o JS controlava.
+       O botão será visível automaticamente quando sua página (special-last-page) estiver ativa. */
+}
+
+.special-button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
 /* Navegação - Setas */
@@ -254,7 +308,7 @@ h1 {
     z-index: 10; /* Acima do livro para serem clicáveis */
     display: flex; /* Para centralizar o texto da seta */
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Centraliza verticalmente o texto da seta dentro do círculo */
     width: 50px; /* Largura e altura para o círculo */
     height: 50px;
 }
@@ -304,7 +358,7 @@ h1 {
 
     .book {
         width: 300px; /* Largura menor para o livro */
-        height: 420px; /* Altura ajustada para dar mais espaço */
+        height: 480px; /* Ajustado: Aumentado para acomodar o botão na nova página */
     }
 
     .page {
@@ -324,9 +378,25 @@ h1 {
         margin-top: 10px;
     }
 
+    /* Ajuste para as imagens da capa em telas menores */
     .page.cover-front .page-image,
     .page.cover-back .page-image {
-        max-height: 50%; /* Ajuste da max-height para imagens de capa em telas menores */
+        max-height: 40%; /* Ajustado: Pode precisar de mais ajustes, teste 35% ou 30% */
+        margin-bottom: 15px; /* Espaço entre imagem e botão */
+    }
+
+    /* Ajuste para a nova página especial em telas menores */
+    .page.special-last-page .page-content h2 {
+        font-size: 2em;
+    }
+    .page.special-last-page .page-content p {
+        font-size: 1em;
+        margin-bottom: 20px;
+    }
+
+    .special-button {
+        padding: 12px 25px;
+        font-size: 1em;
     }
 
     .nav-arrow {
@@ -345,7 +415,7 @@ h1 {
 
     .book {
         width: 260px; /* Ainda menor */
-        height: 380px; /* Altura ajustada */
+        height: 440px; /* Ajustado: Altura também aumentada aqui */
     }
 
     .page {
@@ -364,9 +434,25 @@ h1 {
         max-height: 150px; /* Altura ainda menor para imagens de página */
     }
 
+    /* Ajuste para as imagens da capa em telas muito pequenas */
     .page.cover-front .page-image,
     .page.cover-back .page-image {
-        max-height: 45%; /* Ajuste da max-height para imagens de capa em telas muito pequenas */
+        max-height: 35%; /* Ajustado: Pode precisar de mais ajustes */
+        margin-bottom: 10px; /* Espaço entre imagem e botão */
+    }
+
+    /* Ajuste para a nova página especial em telas muito pequenas */
+    .page.special-last-page .page-content h2 {
+        font-size: 1.8em;
+    }
+    .page.special-last-page .page-content p {
+        font-size: 0.9em;
+        margin-bottom: 15px;
+    }
+
+    .special-button {
+        padding: 10px 20px;
+        font-size: 0.9em;
     }
 
     .nav-arrow {
